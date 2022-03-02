@@ -18,9 +18,18 @@ def data():
     hoje = date.today()
     data = hoje.strftime('%d/%m/%Y')
     return data
-    
-lHora=Label(SystemMenu, text=update_clock(), bg='#dde')
-lHora.place(x=120, y=5, width=100, height=30)
+
+class App():
+    def __init__(self):
+        self.label = Label(text="")
+        self.label.pack()
+        self.update_clock()
+        SystemMenu.mainloop()
+
+    def update_clock(self):
+        now = time.strftime("%H:%M:%S")
+        self.label.configure(text=now)
+        SystemMenu.after(1000, self.update_clock)
 
 def PedidoLogin():
     lg=Tk()
@@ -115,9 +124,6 @@ def PedidoLogin():
                     tvCarrinho.pack()
                     tvCarrinho.place(x=0, y=520, width=600, height=100)
 
-                    bAtualizar=Button(lP, text='Att (F1)', width=8, command=hora)
-                    bAtualizar.place(x=100, y=100, width=100, height=50)
-
                     bQuantidade=Entry(lP)
                     bQuantidade.insert(0, '1')
                     bQuantidade.place(x=20, y=625, width=60, height=50)
@@ -155,7 +161,8 @@ def PedidoLogin():
     bLogar.place(x=50, y=110, width=150)
     lg.mainloop()
 
-bPedidos=Button(SystemMenu, text='Pedir (F1)', width=8, command=PedidoLogin)
+bPedidos=Button(SystemMenu, text='Almoço (F1)', width=8, command=PedidoLogin)
 bPedidos.place(x=15, y=5, width=100, height=30)
 
+app = App()
 SystemMenu.mainloop()
